@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery UI Tabs</title>
+        <link rel="stylesheet" href="../CSS/jquery-ui.css">
+        <link rel="stylesheet" href="../CSS/Assignment1.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+         
+        <script src="jQuery.js" type="text/javascript"></script>
+        <script src="../CSS/jquery-ui.js" type="text/javascript"></script>
+        <!--Implementation of jQuery UI tabs-->
+        <script type="text/javascript">    
+            $(function() {
+				$("#tab").tabs({show:"fold"});
+			});
+
+            
+        </script>
+
+        
+
+    </head>
+    <body>
+        <div class="w3-container w3-light-gray">
+            <br>    
+            <div id="head"> 
+            <br>
+            <img class="resizeLogo" src="../IMAGES/logo-3.png" alt="">
+            <br>
+            <br>
+            </div>
+            <br><br>   
+            <div class="card">
+                <div class="container yellow">
+                    <h5>G01314326- Kaustubh Karanjkar</h5>
+              <h1>Click on the below tabs to navigate through the webpages</h1>   
+              </div>
+              <div class="container">
+                  <div id="tab" style="height:1300px !important;">
+                    <ul>
+                        <li><a href="#1tab">HomePage</a>
+                        <li><a href="#2tab">Assignment1- CS Department</a></li>
+                        <li><a href="#3tab">Survey Page</a></li>
+                        <li><a href="#4tab">Volgenau School of Engineering Page</a></li>
+                    </ul>
+                    <!--Tab for Introduction-->
+                    <div id="1tab">
+                        <iframe style="width:100% !important; height:1240px;" src="Assignment1-Introduction.html"></iframe> 
+                    </div>
+                    <!--Tab for CS Department page-->
+                    <div id="2tab">
+                        <iframe style="width:100% !important;height:1240px !important;"  src="Assignment1-CS_Department.html"></iframe> 
+                    </div>
+                    <!--Tab for Survey Page-->
+                    <div id="3tab">
+                        <iframe style="width:100% !important;height:1240px !important;" src="Assignment2Survey.html"></iframe> 
+                    </div>
+                    <!--Tab for Volgenau School Website-->
+                    <div id="4tab">
+                        <iframe style="width:100% !important;height:1240px !important;" src="VolgenauSchoolWebsite.html"></iframe> 
+                    </div>
+                </div>    
+              </div>
+          </div>
+          <br><br>
+    
+          
+            
+    
+            
+            </div> <!--GMU logo is displayed, and it redirects to University's website on clicking the logo.-->
+            <div class="fix1">
+                <div class="fix">
+                    <a href="https://www.gmu.edu"> 
+                        <img src="../IMAGES/mason-logo.png">
+                    </a>
+                </div>
+            </div>
+           
+    </body>
+</html>

@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Survey form</title>
+        <link rel="stylesheet" href="../CSS/jquery-ui.css">
+        <link rel="stylesheet" href="../CSS/Assignment1.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+         
+        <script src="jQuery.js" type="text/javascript"></script>
+        <script src="../CSS/jquery-ui.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+                    //Cookie feature implemented
+            var now = new Date();
+            var hour = now.getHours();
+            var name;
+            
+
+            if(hour<12){
+                document.write("<h1>Good Morning, ");
+            }else{
+                hour = hour - 12;
+                if(hour<6){
+                    document.write("<h1>Good Afternoon, ");
+                }else{
+                    document.write("<h1>Good Evening, ");
+                }
+            }
+
+            if(document.cookie){
+                //alert(document.cookie);
+                var myCookie = unescape(document.cookie);
+                var cookieTokens = myCookie.split("=");
+                name = cookieTokens[1];
+
+            }else{
+                name = window.prompt("Please enter your name");
+                document.cookie = "name=" + escape(name);
+            }
+
+            document.writeln(name + ", welcome to Student Survey Form!</h1>");
+            document.writeln("<a href = 'javascript:wrongPerson()'>" + "Click here if you are not " + name + "</a>");
+
+            function wrongPerson(){
+                document.cookie = "name=null;" + "expires=Thu, 01-Jan-95 00:00:01 GMT";
+                location.reload();
+            }
+            
+            //function created to compute average and max value.
+            function computation(){
+                var inputNos = document.getElementById("nos").value;
+                var tokens = inputNos.split(",");
+                var sum=0;
+                var max=0;
+                var check=0;
+                var n = tokens.length;
+
+                if(n<10){
+                    window.prompt("ERROR! Enter atleast 10 comma seperated values.");
+                }else{
+                    for(var j=0;j<n;j++){
+                        var nos1 = parseFloat(tokens[j]);
+                        if(nos1<1 || nos1>100){
+                            check=1;       
+                        }
+                    }
+                    if(check==1){
+                        window.prompt("ERROR! Enter input values between 1 and 100.");
+                    }else{  
+                        for(var i=0;i<n; i++){
+                            var nos = parseFloat(tokens[i]);
+                            if(nos>max){
+                                max=nos;
+                            }
+                            sum = sum+nos;
+                        }
+                        var avg = sum/n;
+                        document.getElementById("avg").value = avg;
+                        document.getElementById("max").value = max;
+                    }
+                }   
+            }
+
+            function validation(){    //validation for name, address and email address
+                var letters = /^[A-Za-z]+$/;
+                var regex = /^[A-Za-z0-9]+$/;
+                var address = /^[a-zA-Z0-9\s,.'-]{3,}$/;
+                var eMail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+                var isValidName = letters.test(document.getElementById("fname").value);
+                var isValidAddress = address.test(document.getElementById("saddress").value);
+                var isValidEmail = eMail.test(document.getElementById("femail").value);
+                
+                //Check box validation
+                var flag = 0;
+                if(document.getElementById("campus1").checked == true) flag++;
+                if(document.getElementById("campus2").checked == true) flag++;
+                if(document.getElementById("campus3").checked == true) flag++;
+                if(document.getElementById("campus4").checked == true) flag++;
+                if(document.getElementById("campus5").checked == true) flag++;
+                if(document.getElementById("campus6").checked == true) flag++;
+                
+                //Radio button validation
+                var radioBtn = document.getElementsByName("interest");
+                var radioCount=0;
+                for(var k=0; k<radioBtn.length;k++){
+                    if(radioBtn[k].checked){
+                        radioCount++;
+                    }
+                }
+                
+                if(!isValidName || !isValidAddress || !isValidEmail || radioCount<1 || flag<2){
+                    
+                    $("#button-dialog").dialog({ modal: true 
+                    }).dialog({
+                        position: {
+                            my: "center center",
+                            at: "center center",
+                            of: window
+                        }
+                    });
+                    if(!isValidName){
+                        document.getElementById("fname").value = "";
+                    }
+                    if(!isValidAddress){
+                    //window.prompt("Error! Only alphanumeric");
+                    document.getElementById("saddress").value = "";
+                     }
+                     if(!isValidEmail){
+                    //window.prompt("Error! Please enter valid Email ID");
+                    document.getElementById("femail").value = "";
+                    }
+                }
+            }
+                    //function for reset button
+            function reset(){
+                document.getElementById('*').innerHTML = '';
+               
+
+            }
+
+            function resetValue(){
+                
+                document.getElementById("city").innerHTML = '';
+                document.getElementById("state").innerHTML = '';
+
+            }
+
+
+
+        // function created for ajax call to retrieve data from json file and display State and City to the corresponding zipcode entered
+        function loadJSON(){
+            var data_file = "https://mason.gmu.edu/~kkaranjk/data.json";
+            var http_request = new XMLHttpRequest();
+            try{
+               // Opera 8.0+, Firefox, Chrome, Safari
+               http_request = new XMLHttpRequest();
+            }catch (e){
+               // Internet Explorer Browser
+               try{
+                  http_request = new ActiveXObject("Msxml2.XMLHTTP");
+					
+               }catch (e) {
+				
+                  try{
+                     http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                  }catch (e){
+                     
+                     alert("Your browser broke!");
+                     return false;
+                  }
+					
+               }
+            }
+			
+            http_request.onreadystatechange = function(){
+                document.getElementById( 'validateZip' ).innerHTML = "Checking zip...";  //display message while request is being processed
+                if (http_request.readyState == 4 && http_request.status == 200 ){
+                    var zipValue = document.getElementById("zip").value;
+                  // Javascript function JSON.parse to parse JSON data
+                    var jsonObj = JSON.parse(http_request.responseText);
+
+                    var flag = 0;
+                    for(var i = 0; i< jsonObj.zipcodes.length ; i++){
+                        if(jsonObj.zipcodes[i].zip==zipValue){
+                            document.getElementById( 'validateZip' ).innerHTML = '';
+                            document.getElementById("city").innerHTML = jsonObj.zipcodes[i].city;
+                            document.getElementById("state").innerHTML = jsonObj.zipcodes[i].state;
+                            flag = 1; 
+                        }
+                    }
+                    if(flag==0){
+                            document.getElementById( 'validateZip' ).innerHTML = 'Invalid zip';
+                            document.getElementById("city").innerHTML = '';
+                            document.getElementById("state").innerHTML = '';
+                        }
+                }else if(http_request.status == 500){
+                        document.getElementById( 'validateZip' ).innerHTML = 'Zip validation service not avaliable';
+                    }
+            }
+			
+            http_request.open("GET", data_file, true);
+            http_request.send();
+        }
+        </script>
+
+        
+
+    </head>
+    <body>
+        <div class="w3-container w3-light-gray" >
+        <br>    
+        <div id="head">
+        <br>
+        <img class="resize" src="../IMAGES/logo.png">    
+        
+        <br><br>
+        </div>
+        <br><br>
+        <div class="yellow container">
+            <h5>G01314326- Kaustubh Karanjkar</h5>
+            <h1>SURVEY FORM</h1>
+        </div>
+        <br> <!--form tag is used for form-->
+
+        <div id="button-dialog" title="ERROR!" style="display:none">
+            <p><i>Invalid input!</i> Please follow below instructions before submitting.</p>
+            <br>
+            <p>Name text box should contain only alphabets</p>
+            <p>Address text boxes should contain only appropriate numeric, alphabet or
+                alphanumeric characters.</p>
+            <p>Atleast two checkboxes should be checked</p>
+            <p>A radio button option should be selected</p>
+            <p>Email address format should be valid.</p>
+        </div>  
+
+        <form action="" method="post" autocomplete="on">
+            <div class="card container">
+            <p class="required">* Required field</p>    
+        <!--Label and input tag are used for taking information from the user in the form-->
+            <label for="fname">User name:<span class="required">*</span></label>
+            <input class="input" type="text" id="fname" name="fname" autofocus required><br>  <!--Auto focus and required attribute is used-->
+            <br>       
+            <label for="saddress">Street Address:</label>
+            <input class="input" type="text" id="saddress" name="saddress"><br>
+            <br>
+            <!--<label for="fcity">City:</label>
+            <input class="input" type="text" id="fcity" name="fcity" ><br> -->
+            City: <span id = "city"></span>
+            <br>
+            <!--<label for="fstate">State:</label>
+            <input class="input" type="text" id="fstate" name="fstate" ><br>-->
+            <br>
+            State: <span id = "state"></span>
+            <br><br>
+            <!--<label for="fzip">Zip:</label>
+            <input class="input" type="number" id="zip" name="fzip" onblur = 'validateZip( this.value )'><br>-->
+            <br>
+            Zip: <input id = 'zip' onblur = 'loadJSON()'/>
+            <span id = "validateZip">
+            </span><br><br>
+            <label for="ftel">Telephone number:<span class="required">*</span></label>
+            <input class="input" type="tel" id="ftel" name="ftel" required><br>
+            <br>
+            <label for="femail">Email:<span class="required">*</span></label>
+            <input class="input" type="email" id="femail" name="femail" placeholder="xyz@gmu.edu" required><br>
+            <br>
+            <label for="furl">URL:</label>   <!--Place holder attribute is used-->
+            <input class="input" type="url" id="furl" name="furl" placeholder="https://xyz.com"><br>
+            <br>
+            <label for="fdate">Date of survey:<span class="required">*</span></label>
+            <input class="input" type="date" id="fdate" name="fdate" required><br>
+            <br>     <!--data list feature is used-->
+            <label for="grad">High-school graduation month & year:<span class="required">*</span></label><br>
+            <input class="input" list="month" name="grad" id="grad" placeholder="month" required>
+            <datalist id="month">
+                <option value="January">
+                <option value="February">    
+                <option value="March">
+                <option value="April">
+                <option value="May">
+                <option value="June">
+                <option value="July">   
+                <option value="August">
+                <option value="September">
+                <option value="October">
+                <option value="November">
+                <option value="December">  
+            </datalist>
+            <input class="input" type="text" id="grad" placeholder="Year" maxlength="4" required>
+            <br><br>
+            </div>
+            <br>
+            <div class="card container">   <!--Check box type is used in input tag-->
+            <h3>What do you like most about the campus?</h3>
+            <input class="input" type="checkbox" id="campus1" name="campus1" value="students">
+            <label for="campus1">Students</label><br>
+            <input class="input" type="checkbox" id="campus2" name="campus2" value="location">
+            <label for="campus2">Location</label><br>
+            <input class="input" type="checkbox" id="campus3" name="campus3" value="campus">
+            <label for="campus3">Campus</label><br>
+            <input class="input" type="checkbox" id="campus4" name="campus4" value="atmosphere">
+            <label for="campus4">Atmosphere</label><br>
+            <input class="input" type="checkbox" id="campus5" name="campus5" value="dorm">
+            <label for="campus5">Dorm rooms</label><br>
+            <input class="input" type="checkbox" id="campus6" name="campus6" value="sports">
+            <label for="campus6">Sports</label><br>
+            <br>
+            </div>
+            <br>
+            <div class="card container">        <!--radio buttons are used-->
+            <h3>What piqued your interest in attending this university?</h3>
+            <input class="input" type="radio" id="rfriends" name="interest" value="friends">
+            <label for="rfriends">Friends</label><br>
+            <input class="input" type="radio" id="rtelevision" name="interest" value="television">
+            <label for="rtelevision">Television</label><br>
+            <input class="input" type="radio" id="rinternet" name="interest" value="internet">
+            <label for="rinternet">Internet</label><br>
+            <input class="input" type="radio" id="rother" name="interest" value="other">
+            <label for="rother">Other</label><br>
+            <br>
+            </div>
+            <br>
+            <div class="card container">
+            <label for="like"></label><h3>Likelihood of recommending this university to other prospective students</h3></label>
+            <select name="like" id="like">
+                <option value="vlike">Very likely</option>
+                <option value="likel">Likely</option>
+                <option value="unlike">Unlikely</option>
+            </select>
+            <br><br>
+            </div>
+            <br> 
+            <div class="card container">
+            <p>
+                <label>Additional comments:<br/>
+                    <textarea  class="input" name = "comments"
+                    rows = "4" cols = "36" placeholder="Enter comments here."></textarea>
+                </label>
+            </p>
+            </div>
+            <br>
+            <div class="card container">
+                <br>
+                <h4>Enter ten comma separated numbers ranging from 1 through 100 in the below data field</h4>
+                <br>
+                <label for="nos">Data:</label>
+                <input class="input" type="text" id="nos" name="nos" onfocusout="computation()"><br>
+                <br>
+                <label for="avg">Average:</label>
+                <input class="input" type="text" id="avg" name="avg"><br>
+                <br>
+                <label for="max">Maximum:</label>
+                <input class="input" type="text" id="max" name="max"><br>
+                <br>  
+            </div>
+            <br><br>
+            <input class="input submit" type="submit" value="Submit" onclick="validation()">
+            <input class="input submit" type="button" value="Reset" onclick="reset();resetValue();">
+        </form>
+        <br>
+        </div>
+        <div class="fix1">
+            <div class="fix">
+                <a href="https://www.gmu.edu"> 
+                    <img src="../IMAGES/mason-logo.png">
+                </a>
+            </div>
+
+           
+    </body>
+</html>

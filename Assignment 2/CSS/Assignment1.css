@@ -1,0 +1,119 @@
+h1 {         /* GMU green colour is assigned to h1 tag*/
+    color: #006633;
+    
+}
+
+body{
+    padding-bottom: 200px;
+}
+
+#head {    /*Id is created for green border line of 5px width and background color beige is added*/
+    border-width: 5px;
+    border-color: #006633;
+    border-style: solid;
+    box-shadow: 5px 10px black;
+    background: beige;
+}
+
+#foot{    /*Id is created to add dotted border line on survey link card on Department website*/
+    border-width: 3px;
+    border-color: black;
+    border-style: dotted;
+}
+
+.fix{   /*for position and backgroppund color of GMU logo*/
+    position:fixed;
+    bottom:0px;
+    right:0%;
+    background-color: #006633; 
+}
+
+
+.fix1{  
+    background: #006633;
+}
+
+
+label {           /*to add the padding and set the width of label tag*/
+    display: inline-block;
+    width: 200px;
+    padding-left: 20px;
+    
+  }
+
+.input {    /*to add the padding to input tag*/
+    padding: 5px 10px;
+    
+  }
+
+.input:hover{  /*Hover effect for input tag in Survey form*/
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    background-color: beige;
+}  
+
+
+  .card {   /*To create a card*/
+    /* shadow is added*/
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    background: white;
+  }
+  
+  /* On mouse-over, add a deeper shadow */
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Add some padding inside the card container */
+  .container {
+    padding: 2px 16px;
+  }
+
+  .yellow {   /*Class is created for background yellow color */
+      background: #FFCC33;
+  }
+
+  .green{   /*Class is created for background green color */
+      background: #006633;
+  }
+  
+  a:hover{       /*Hover effect is added to anchor tag, color changes to yellow.*/
+      color: #FFCC33;
+      font-family: monospace;    /*Changes the font style after hovering*/
+  }
+  #green{      /*Id is created for GMU green color*/
+      color: #006633;
+  }
+  #white{     /*Id is created for white color*/
+      color: white;
+  }
+  .resize{     /* resize class is created for resizing the GMU logo image*/
+      width: 540px;
+      height: auto;
+  }
+  .resize1{
+    width: 100px;
+    height: auto;
+}
+.resizeLogo{     /* resize class is created for resizing the GMU logo image*/
+    width: 100px;
+    height: auto;
+}
+
+.submit{        /*submit class is created to change the background color of submit button to yellow and text color to green*/
+    background-color: #FFCC33;
+    color: #006633;
+}
+.submit:hover{  /*Hover effect is added, background color gets changed to green and text color gets changed to white*/
+    background-color: #006633;
+    color: #FFF;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.required{  /*required class is created to change the color of * to red */
+    color: red;
+}
+
+.heading{    /*Class created to change the font of the heading*/
+    font-family: monospace;
+}
