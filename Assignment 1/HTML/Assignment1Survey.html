@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Survey form</title>
+        <link rel="stylesheet" href="../CSS/Assignment1.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+        <div class="w3-container w3-light-gray" >
+        <br>    
+        <div id="head">
+        <br>
+        <img class="resize" src="../IMAGES/logo.png">    
+        
+        <br><br>
+        </div>
+        <br><br>
+        <div class="yellow container">
+            <h1>SURVEY FORM</h1>
+        </div>
+        <br> <!--form tag is used for form-->
+        <form action="" method="post" autocomplete="on">
+            <div class="card container">
+            <p class="required">* Required field</p>    
+        <!--Label and input tag are used for taking information from the user in the form-->
+            <label for="fname">User name:<span class="required">*</span></label>
+            <input class="input" type="text" id="fname" name="fname" autofocus required><br>  <!--Auto focus and required attribute is used-->
+            <br>       
+            <label for="saddress">Street Address:</label>
+            <input class="input" type="text" id="saddress" name="saddress"><br>
+            <br>
+            <label for="fcity">City:</label>
+            <input class="input" type="text" id="fcity" name="fcity" ><br>
+            <br>
+            <label for="fstate">State:</label>
+            <input class="input" type="text" id="fstate" name="fstate" ><br>
+            <br>
+            <label for="fzip">Zip:</label>
+            <input class="input" type="number" id="fzip" name="fzip" ><br>
+            <br>
+            <label for="ftel">Telephone number:<span class="required">*</span></label>
+            <input class="input" type="tel" id="ftel" name="ftel" required><br>
+            <br>
+            <label for="femail">Email:<span class="required">*</span></label>
+            <input class="input" type="email" id="femail" name="femail" placeholder="xyz@gmu.edu" required><br>
+            <br>
+            <label for="furl">URL:</label>   <!--Place holder attribute is used-->
+            <input class="input" type="url" id="furl" name="furl" placeholder="https://xyz.com"><br>
+            <br>
+            <label for="fdate">Date of survey:<span class="required">*</span></label>
+            <input class="input" type="date" id="fdate" name="fdate" required><br>
+            <br>     <!--data list feature is used-->
+            <label for="grad">High-school graduation month & year:<span class="required">*</span></label><br>
+            <input class="input" list="month" name="grad" id="grad" placeholder="month" required>
+            <datalist id="month">
+                <option value="January">
+                <option value="February">    
+                <option value="March">
+                <option value="April">
+                <option value="May">
+                <option value="June">
+                <option value="July">   
+                <option value="August">
+                <option value="September">
+                <option value="October">
+                <option value="November">
+                <option value="December">  
+            </datalist>
+            <input class="input" type="text" id="grad" placeholder="Year" maxlength="4" required>
+            <br><br>
+            </div>
+            <br>
+            <div class="card container">   <!--Check box type is used in input tag-->
+            <h3>What do you like most about the campus?</h3>
+            <input class="input" type="checkbox" id="campus1" name="campus1" value="students">
+            <label for="campus1">Students</label><br>
+            <input class="input" type="checkbox" id="campus2" name="campus2" value="location">
+            <label for="campus2">Location</label><br>
+            <input class="input" type="checkbox" id="campus3" name="campus3" value="campus">
+            <label for="campus3">Campus</label><br>
+            <input class="input" type="checkbox" id="campus4" name="campus4" value="atmosphere">
+            <label for="campus4">Atmosphere</label><br>
+            <input class="input" type="checkbox" id="campus5" name="campus5" value="dorm">
+            <label for="campus5">Dorm rooms</label><br>
+            <input class="input" type="checkbox" id="campus6" name="campus6" value="sports">
+            <label for="campus6">Sports</label><br>
+            <br>
+            </div>
+            <br>
+            <div class="card container">        <!--radio buttons are used-->
+            <h3>What piqued your interest in attending this university?</h3>
+            <input class="input" type="radio" id="rfriends" name="interest" value="friends">
+            <label for="rfriends">Friends</label><br>
+            <input class="input" type="radio" id="rtelevision" name="interest" value="television">
+            <label for="rtelevision">Television</label><br>
+            <input class="input" type="radio" id="rinternet" name="interest" value="internet">
+            <label for="rinternet">Internet</label><br>
+            <input class="input" type="radio" id="rother" name="interest" value="other">
+            <label for="rother">Other</label><br>
+            <br>
+            </div>
+            <br>
+            <div class="card container">
+            <label for="like"></label><h3>Likelihood of recommending this university to other prospective students</h3></label>
+            <select name="like" id="like">
+                <option value="vlike">Very likely</option>
+                <option value="likel">Likely</option>
+                <option value="unlike">Unlikely</option>
+            </select>
+            <br><br>
+            </div>
+            <br> 
+            <div class="card container">
+            <p>
+                <label>Additional comments:<br/>
+                    <textarea  class="input" name = "comments"
+                    rows = "4" cols = "36" placeholder="Enter comments here."></textarea>
+                </label>
+            </p>
+            </div>
+            <br><br>
+            <input class="input submit" type="submit" value="Submit">
+        </form>
+        <br>
+        </div>
+        <div class="fix1">
+            <div class="fix">
+                <a href="https://www.gmu.edu"> 
+                    <img src="../IMAGES/mason-logo.png">
+                </a>
+            </div>
+    </body>
+</html>
